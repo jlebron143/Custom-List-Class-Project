@@ -49,6 +49,20 @@ namespace Generics
             mainArray[count] = things;
             count++;
         }
+
+        //why did you use action? 
+        public static ListProperties<T> operator +(ListProperties<T> propertiesOne, ListProperties<T> propertiesTwo)
+        {
+            ListProperties<T> addBothList = new ListProperties<T>();
+            addBothList = propertiesOne + propertiesTwo;
+            return addBothList;
+        }
+        public static ListProperties<T> operator -(ListProperties<T> propertiesOne, ListProperties<T> propertiesTwo)
+        {
+            ListProperties<T> reduceThings = new ListProperties<T>();
+            reduceThings = propertiesOne - propertiesTwo;
+            return reduceThings;
+        }
         public void MakeBigArray()
         {
             T[] secondaryArray = new T[volume * 2];
@@ -94,19 +108,9 @@ namespace Generics
             return adjustToString;
         }
 
-        //why did you use action? 
-        public static ListProperties<T> operator  +(ListProperties<T> propertiesOne, ListProperties<T> propertiesTwo)
-            {
-                ListProperties<T> addBothList = new ListProperties<T>();
-                addBothList = propertiesOne + propertiesTwo;
-                return  addBothList;
-            }
-        public static ListProperties<T> operator -(ListProperties<T> propertiesOne, ListProperties<T> propertiesTwo)
-        {
-            ListProperties<T> reduceThings = new ListProperties<T>();
-            reduceThings = propertiesOne - propertiesTwo;
-            return reduceThings;
-        }
+    }
+}
+
 
 
 

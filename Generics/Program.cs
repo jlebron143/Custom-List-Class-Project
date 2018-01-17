@@ -6,13 +6,11 @@ using System.Threading.Tasks;
 
 namespace Generics
 {
-    public class Program
+    class Program
     {
         static void Main(string[] args)
         {
-            ListProperties<int> propertiesOne = new ListProperties<int>();
-            ListProperties<int> propertiesTwo = new ListProperties<int>();
-            ListProperties<string> propertiesThree = new ListProperties<string>();
+
         }
     }
 }
