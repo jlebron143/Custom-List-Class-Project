@@ -1,0 +1,2 @@
+c:\users\justina .laptop-asvd79o6\documents\visual studio 2015\Projects\Generics\Generics\bin\Debug\Generics.exe.config
+C:\Users\Justina .LAPTOP-ASVD79O6\Documents\Visual Studio 2015\Projects\Generics\Generics\obj\Debug\Generics.csprojResolveAssemblyReference.cache
