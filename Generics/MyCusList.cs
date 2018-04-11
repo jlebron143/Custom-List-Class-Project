@@ -14,89 +14,90 @@ namespace Generics
         T[] mainArray;
         T[] secondaryArray;
 
-        public ListProperties()
-        {
-            volume = 5;
-            mainArray = new T[volume];
-            secondaryArray = new T[0];
 
 
-        }
-        public int VolumeIndex
-        {
-            get
-            {
-                return volume;
-            }
-            set
-            {
-                volume = value;
-            }
-        }
-        public int Count
-        {
-            get
-            {
-                return count;
-            }
-        }
-        public void Add(T things)
-        {
-            if (count == VolumeIndex)
-            {
+        // IEnumerator
 
-            }
-            mainArray[count] = things;
-            count++;
-        }
-
-        //why did you use action? 
-        public static ListProperties<T> operator +(ListProperties<T> propertiesOne, ListProperties<T> propertiesTwo)
-        {
-            ListProperties<T> addBothList = new ListProperties<T>();
-            addBothList = propertiesOne + propertiesTwo;
-            return addBothList;
-        }
-        public static ListProperties<T> operator -(ListProperties<T> propertiesOne, ListProperties<T> propertiesTwo)
-        {
-            ListProperties<T> reduceThings = new ListProperties<T>();
-            reduceThings = propertiesOne - propertiesTwo;
-            return reduceThings;
-        }
-        public void MakeBigArray()
-        {
-            T[] secondaryArray = new T[volume * 2];
-            for (int i = 0; i < count; i++)
-            {
-                secondaryArray[i] = mainArray[i];
-            }
-            volume = volume * 2;
-            mainArray = secondaryArray;
-        }
-        public bool Remove(T thing)
-        {
-            for (int i = 0; i < count; i++)
-            {
-                if (mainArray[i].Equals(thing))
-                {
-                    mainArray[i] = mainArray[i + 1];
-                    count++;
-                    return true;
-                }
-            }
-            return false;
-        }
         public IEnumerator<T> GetEnuerator()
         {
             for (int i = 0; i < count; i++)
-            {
-                yield return mainArray[i];
-            }
 
+                yield return mainArray[i];
         }
-        IEnumerator<T> GetEnumerator()
+
+        // constructor
+        public ListProperties()
         {
-            return this.GetEnuerator();
+            capacity = array.Length;
+        }
+        // member variables
+        T[] array = new T[5];
+        int count = 0;
+        int capacity;
+        // Accessors for member variables
+        public int Count
+        {
+            get { return count; }
+        }
+        // Indexer
+        public T this[int i]
+        {
+            get
+            {
+                if (i < count)
+                {
+                    return array[i];
+                }
+                else
+                {
+                    throw new Exception();
+                }
+            }
+            set { array[i] = value; }
+        }
+        // member methods        
+        public void Add(T input)
+        {
+            count++;
+            if (count * 2 >= capacity)
+            {
+                capacity *= 2;
+            }
+            T[] result = new T[capacity];
+            result[count - 1] = input;
+            for (int i = 0; i < count - 1; i++)
+            {
+                result[i] = array[i];
+            }
+            array = result;
+        }
+        public bool Remove(T input)
+        {
+            bool removed = false;
+            T[] result = new T[capacity];
+
+            for (int i = 0; i < count; i++)
+            {
+                if (array[i].Equals(input) && !removed)
+                {
+                    removed = true;
+                    count--;
+                    if (i < count)
+                    {
+                        result[i] = array[i + 1];
+                    }
+                }
+                else if (removed)
+                {
+                    result[i] = array[i + 1];
+                }
+                else
+                {
+                    result[i] = array[i];
+                }
+            }
+            array = result;
+            return removed;
         }
         public override string ToString()
         {
@@ -107,9 +108,88 @@ namespace Generics
             }
             return adjustToString;
         }
+        public static ListProperties<T> operator +(ListProperties<T> one, ListProperties<T> two)
+        {
+            ListProperties<T> result = new ListProperties<T>();
+            for (int i = 0; i < one.Count; i++)
+            {
+                result.Add(one[i]);
+            }
+            for (int i = 0; i < two.Count; i++)
+            {
+                result.Add(two[i]);
+            }
+            return result;
+        }
+        public static ListProperties<T> operator -(ListProperties<T> one, ListProperties<T> two)
+        {
+            ListProperties<T> result = new ListProperties<T>();
+            for (int i = 0; i < one.Count; i++)
+            {
+                result.Add(one[i]);
+            }
+            for (int i = 0; i < two.Count; i++)
+            {
+                result.Remove(two[i]);
+            }
+            return result;
+        }
+        public ListProperties<T> Zip(ListProperties<T> list)
+        {
+            ListProperties<T> result = new ListProperties<T>();
+
+            int counter = 0;
+            int counterTwo = 0;
+            bool oneDone = false;
+            bool twoDone = false;
+            while (!oneDone || !twoDone)
+            {
+                if (counterTwo < count)
+                {
+                    result.Add(array[counterTwo]);
+                    counterTwo++;
+                }
+                else { twoDone = true; }
+                if (counter < list.Count)
+                {
+                    result.Add(list[counter]);
+                    counter++;
+                }
+                else { oneDone = true; }
+            }
+            return result;
+        }
+        public void Sort()
+        {
+            T[] result = new T[count];
+            result = array;
+            int i, j;
+            int N = count;
+            for (j = N - 1; j > 0; j--)
+            {
+                for (i = 0; i < j; i++)
+                {
+                    if (Comparer<T>.Default.Compare(result[i], result[i + 1]) > 0)
+                    {
+                        Swap(result, i, i + 1);
+                    }
+                }
+            }
+            array = result;
+        }
+
+        public void Swap(T[] list, int left, int right)
+        {
+            T temporary;
+            temporary = list[left];
+            list[left] = list[right];
+            list[right] = temporary;
+        }
 
     }
+
 }
+
 
 
 
