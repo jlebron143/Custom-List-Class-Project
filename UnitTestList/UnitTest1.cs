@@ -284,7 +284,7 @@ namespace UnitTestList
         }
         // Plus Operator Test Methods
         [TestMethod]
-        public void PlusOp_Strings_ConcatLists()
+        public void Plus_Strings_ConcatLists()
         {
             // Arrange
             ListProperties<string> list = new ListProperties<string>() { "One", "Two" };
@@ -295,7 +295,7 @@ namespace UnitTestList
             Assert.AreEqual(expected, list[3]);
         }
         [TestMethod]
-        public void PlusOp_Ints_CountIncrease()
+        public void Plus_Ints_CountIncrease()
         {
             // Arrange
             ListProperties<int> list = new ListProperties<int>() { 1, 2, 3 };
@@ -306,7 +306,7 @@ namespace UnitTestList
             Assert.AreEqual(expected, list.Count);
         }
         [TestMethod]
-        public void PlusOp_EmptyList_ConcatLists()
+        public void Plus_EmptyList_ConcatLists()
         {
             ListProperties<string> list = new ListProperties<string>() { "One", "Two" };
             ListProperties<string> empty = new ListProperties<string>();
@@ -317,7 +317,7 @@ namespace UnitTestList
             Assert.AreEqual(expected, empty[1]);
         }
         [TestMethod]
-        public void PlusOp_StringToEmpty_CountIdles()
+        public void Plus_StringToEmpty_CountIdles()
         {
             ListProperties<string> list = new ListProperties<string>() { "One", "Two" };
             ListProperties<string> empty = new ListProperties<string>();
@@ -329,7 +329,7 @@ namespace UnitTestList
 
         }
         [TestMethod]
-        public void PlusOp_Bools_ListsConcat()
+        public void Plus_Bools_ListsConcat()
         {
             // Arrange
             ListProperties<bool> list = new ListProperties<bool>() { true, false };
@@ -342,7 +342,7 @@ namespace UnitTestList
         // Minus Operator Test Methods
         [TestMethod]
         [ExpectedException(typeof(System.Exception))]
-        public void MinusOp_Bools_ThrowException()
+        public void Minus_Bools_ThrowException()
         {
             // Arrange
             ListProperties<bool> list = new ListProperties<bool>() { true, true, true };
@@ -353,7 +353,7 @@ namespace UnitTestList
             Assert.AreNotEqual(notExpected, list[0]);
         }
         [TestMethod]
-        public void MinusOp_Strings_IndexShifts()
+        public void Minus_Strings_IndexShifts()
         {
             // Arrange
             ListProperties<string> list = new ListProperties<string>() { "true", "true", "false" };
@@ -365,7 +365,7 @@ namespace UnitTestList
             Assert.AreEqual(expected, list[1]);
         }
         [TestMethod]
-        public void MinusOp_Bools_CountDecrease()
+        public void Minus_Bools_CountDecrease()
         {
             // Arrange
             ListProperties<bool> list = new ListProperties<bool>() { true, true, true };
@@ -376,7 +376,7 @@ namespace UnitTestList
             Assert.AreEqual(expected, list.Count);
         }
         [TestMethod]
-        public void MinusOp_AllInts_CountDecrease()
+        public void Minus_AllInts_CountDecrease()
         {
             // Arrange
             ListProperties<int> list = new ListProperties<int>() { 1, 4, 9 };
@@ -387,7 +387,7 @@ namespace UnitTestList
             Assert.AreEqual(expected, list.Count);
         }
         [TestMethod]
-        public void MinusOp_Objects_CountDecreases()
+        public void Minus_Objects_CountDecreases()
         {
             // Arrange
             ListProperties<object> list = new ListProperties<object>() { };
