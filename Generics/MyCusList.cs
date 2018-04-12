@@ -9,7 +9,6 @@ namespace Generics
 {
     public class ListProperties<T> //: IEnumerable
     {
-        int count;
         int volume;
         T[] mainArray;
         T[] secondaryArray;
@@ -134,30 +133,26 @@ namespace Generics
             }
             return result;
         }
-        public ListProperties<T> Zip(ListProperties<T> list)
+        public ListProperties<T> Zip(ListProperties<T> objectA)
         {
-            ListProperties<T> result = new ListProperties<T>();
-
-            int counter = 0;
-            int counterTwo = 0;
-            bool oneDone = false;
-            bool twoDone = false;
-            while (!oneDone || !twoDone)
+            ListProperties<T> newList = new ListProperties<T>();
+            if (objectA.Count > this.Count || objectA.count == this.Count)
             {
-                if (counterTwo < count)
+                for (int i = 0; i < this.Count; i++)
                 {
-                    result.Add(array[counterTwo]);
-                    counterTwo++;
+                    newList.Add(this[i]);
+                    newList.Add(objectA[i]);
                 }
-                else { twoDone = true; }
-                if (counter < list.Count)
-                {
-                    result.Add(list[counter]);
-                    counter++;
-                }
-                else { oneDone = true; }
             }
-            return result;
+            else
+            {
+                for (int i = 0; i < objectA.Count; i++)
+                {
+                    newList.Add(objectA[i]);
+                    newList.Add(this[i]);
+                }
+            }
+            return newList;
         }
         public void Sort()
         {
